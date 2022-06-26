@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_uas/homescreen.dart';
+import 'package:project_uas/hscreencompany.dart';
 import 'package:project_uas/mainscreen.dart';
 import 'package:project_uas/services/auth_services.dart';
 import 'firebase_options.dart';
@@ -45,8 +46,13 @@ class AuthWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.watch<User?>();
+    User? userDetection = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
+    if (user != null &&
+        userDetection!.email.toString().contains('company') == true) {
+      return HomeScreenCompany();
+    } else if (user != null &&
+        userDetection!.email.toString().contains('company') == false) {
       return HomeScreen();
     }
     return MainScreen();

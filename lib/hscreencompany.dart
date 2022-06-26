@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_uas/seeker_profile.dart';
+import 'package:project_uas/company_profile.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreenCompany extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreenCompanyState createState() => _HomeScreenCompanyState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenCompanyState extends State<HomeScreenCompany> {
   User? userDetection = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
               textColor: Colors.white,
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SeekerProfile()));
+                    MaterialPageRoute(builder: (context) => CompanyProfile()));
               },
               child: Text("Edit Profile"),
             ),
@@ -49,20 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.blueAccent,
               textColor: Colors.white,
               onPressed: () {},
-              child: Text("Lihat Lowongan"),
-            ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Container(
-            height: 40,
-            width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.blueAccent,
-              textColor: Colors.white,
-              onPressed: () {},
-              child: Text("Lihat Status Lowongan"),
+              child: Text("Buat Lowongan"),
             ),
           ),
           SizedBox(

@@ -20,15 +20,32 @@ class _MainScreenState extends State<MainScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("LOGIN / SIGN UP"),
+            Text(
+              "LOGIN / SIGN UP",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(
+              height: 16,
+            ),
             Container(
               margin: EdgeInsets.symmetric(
                 horizontal: 50,
               ),
-              child: TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  hintText: "Insert email...",
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      hintText: "Insert email...",
+                      hintStyle: TextStyle(color: Colors.white),
+                      border: InputBorder.none,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -39,12 +56,23 @@ class _MainScreenState extends State<MainScreen> {
               margin: EdgeInsets.symmetric(
                 horizontal: 50,
               ),
-              child: TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  hintText: "Insert password...",
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: new BorderRadius.circular(10.0),
                 ),
-                obscureText: true,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: TextFormField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      hintText: "Insert password...",
+                      hintStyle: TextStyle(color: Colors.white),
+                      border: InputBorder.none,
+                    ),
+                    obscureText: true,
+                  ),
+                ),
               ),
             ),
             SizedBox(
@@ -53,10 +81,8 @@ class _MainScreenState extends State<MainScreen> {
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width / 3,
-              color: Colors.blue,
               child: FlatButton(
-                color: Colors.blueAccent,
-                textColor: Colors.white,
+                textColor: Colors.black,
                 onPressed: () {
                   final String email = emailController.text.trim();
                   final String password = passwordController.text.trim();
@@ -74,7 +100,10 @@ class _MainScreenState extends State<MainScreen> {
                     }
                   }
                 },
-                child: Text("Log In"),
+                child: Text(
+                  "Log In",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             SizedBox(
@@ -83,10 +112,8 @@ class _MainScreenState extends State<MainScreen> {
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width / 3,
-              color: Colors.red,
               child: FlatButton(
-                color: Colors.blueAccent,
-                textColor: Colors.white,
+                textColor: Colors.black,
                 onPressed: () {
                   final String email = emailController.text.trim();
                   final String password = passwordController.text.trim();
@@ -99,7 +126,7 @@ class _MainScreenState extends State<MainScreen> {
                     } else {
                       context
                           .read<AuthService>()
-                          .signUp(
+                          .signUpSeeker(
                             email,
                             password,
                           )
@@ -107,7 +134,7 @@ class _MainScreenState extends State<MainScreen> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         await FirebaseFirestore.instance
-                            .collection("users")
+                            .collection("job-seeker")
                             .doc(user?.uid)
                             .set({
                           'uid': user?.uid,
@@ -119,7 +146,10 @@ class _MainScreenState extends State<MainScreen> {
                     }
                   }
                 },
-                child: Text("Sign Up as Job Seeker"),
+                child: Text(
+                  "Sign Up as Job Seeker",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             SizedBox(
@@ -128,10 +158,8 @@ class _MainScreenState extends State<MainScreen> {
             Container(
               height: 40,
               width: MediaQuery.of(context).size.width / 3,
-              color: Colors.red,
               child: FlatButton(
-                color: Colors.blueAccent,
-                textColor: Colors.white,
+                textColor: Colors.black,
                 onPressed: () {
                   final String email = emailController.text.trim();
                   final String password = passwordController.text.trim();
@@ -144,7 +172,7 @@ class _MainScreenState extends State<MainScreen> {
                     } else {
                       context
                           .read<AuthService>()
-                          .signUp(
+                          .signUpCompany(
                             email,
                             password,
                           )
@@ -152,7 +180,7 @@ class _MainScreenState extends State<MainScreen> {
                         User? user = FirebaseAuth.instance.currentUser;
 
                         await FirebaseFirestore.instance
-                            .collection("users")
+                            .collection("company")
                             .doc(user?.uid)
                             .set({
                           'uid': user?.uid,
@@ -164,7 +192,10 @@ class _MainScreenState extends State<MainScreen> {
                     }
                   }
                 },
-                child: Text("Sign Up as Company"),
+                child: Text(
+                  "Sign Up as Company",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ],

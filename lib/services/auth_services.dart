@@ -17,7 +17,7 @@ class AuthService {
     }
   }
 
-  Future<String> signUp(String email, String password) async {
+  Future<String> signUpSeeker(String email, String password) async {
     try {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -25,7 +25,29 @@ class AuthService {
         User? user = FirebaseAuth.instance.currentUser;
 
         await FirebaseFirestore.instance
-            .collection("users")
+            .collection("job-seeker")
+            .doc(user?.uid)
+            .set({
+          'uid': user?.uid,
+          'email': email,
+          'password': password,
+        });
+      });
+      return "Signed Up";
+    } catch (e) {
+      return e.toString();
+    }
+  }
+
+  Future<String> signUpCompany(String email, String password) async {
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        User? user = FirebaseAuth.instance.currentUser;
+
+        await FirebaseFirestore.instance
+            .collection("company")
             .doc(user?.uid)
             .set({
           'uid': user?.uid,
