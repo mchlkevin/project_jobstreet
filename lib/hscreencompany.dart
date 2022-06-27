@@ -35,11 +35,22 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
           FutureBuilder<DocumentSnapshot<Object?>>(
             future: DatabaseCompany.getData(userDetection!.uid),
             builder: (context, snapshot) {
-              Map<String, dynamic> data =
-                  snapshot.data!.data() as Map<String, dynamic>;
-              return Column(children: [
-                Text('Welcome ' + data['company-name']),
-              ]);
+              if (snapshot.hasError) {
+                return Text("Something went wrong");
+              }
+              if (snapshot.hasData && !snapshot.data!.exists) {
+                return Text("Document does not exist");
+              }
+
+              if (snapshot.connectionState == ConnectionState.done) {
+                Map<String, dynamic> data =
+                    snapshot.data!.data() as Map<String, dynamic>;
+                return Column(children: [
+                  Text('Welcome ' + data['company-name']),
+                ]);
+              }
+
+              return CircularProgressIndicator();
             },
           ),
           SizedBox(height: 16),

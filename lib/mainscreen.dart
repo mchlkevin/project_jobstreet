@@ -22,7 +22,11 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Container(
                 padding: EdgeInsets.symmetric(vertical: 50),
-                child: Text('Job Street Apps')),
+                child: Image.asset(
+                  'assets/images/profile.png',
+                  height: 200,
+                  width: 200,
+                )),
             Expanded(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 32),
