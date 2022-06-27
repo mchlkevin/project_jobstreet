@@ -13,6 +13,7 @@ class CompanyProfile extends StatefulWidget {
 }
 
 class _CompanyProfileState extends State<CompanyProfile> {
+  TextEditingController cName = new TextEditingController();
   TextEditingController cAdress = new TextEditingController();
   TextEditingController cField = new TextEditingController();
   TextEditingController cDescription = new TextEditingController();
@@ -31,6 +32,29 @@ class _CompanyProfileState extends State<CompanyProfile> {
           SizedBox(
             height: 16,
           ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 50,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.lightBlue,
+                borderRadius: new BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                child: TextFormField(
+                  controller: cName,
+                  decoration: InputDecoration(
+                    hintText: "Insert company name...",
+                    hintStyle: TextStyle(color: Colors.white),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
           Container(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
@@ -109,6 +133,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
               onPressed: () {
                 final dt = classCompany(
                     uid: userDetection!.uid,
+                    name: cName.text,
                     adress: cAdress.text,
                     field: cField.text,
                     description: cDescription.text);
