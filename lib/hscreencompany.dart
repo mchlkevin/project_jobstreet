@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/company_profile.dart';
+import 'package:project_uas/services/db_services.dart';
 
 class HomeScreenCompany extends StatefulWidget {
   @override
@@ -11,6 +13,12 @@ class HomeScreenCompany extends StatefulWidget {
 
 class _HomeScreenCompanyState extends State<HomeScreenCompany> {
   User? userDetection = FirebaseAuth.instance.currentUser;
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +32,16 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
           SizedBox(
             height: 16,
           ),
-          Text('Welcome ' + userDetection!.uid.toString()),
+          FutureBuilder<DocumentSnapshot<Object?>>(
+            future: DatabaseCompany.getData(userDetection!.uid),
+            builder: (context, snapshot) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              return Column(children: [
+                Text('Welcome ' + data['company-name']),
+              ]);
+            },
+          ),
           SizedBox(height: 16),
           Container(
             height: 40,

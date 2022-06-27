@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/seeker_profile.dart';
+import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewCompanyList.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -24,7 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(
             height: 16,
           ),
-          Text('Welcome ' + userDetection!.uid.toString()),
+          FutureBuilder<DocumentSnapshot<Object?>>(
+            future: DatabaseSeeker.getData(userDetection!.uid),
+            builder: (context, snapshot) {
+              Map<String, dynamic> data =
+                  snapshot.data!.data() as Map<String, dynamic>;
+              return Text('Welcome ' + data['full-name']);
+            },
+          ),
           SizedBox(height: 16),
           Container(
             height: 40,
@@ -37,6 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => SeekerProfile()));
               },
               child: Text("Edit Profile"),
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Container(
+            height: 40,
+            width: MediaQuery.of(context).size.width / 3,
+            child: FlatButton(
+              color: Colors.blueAccent,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => viewCompanyList()));
+              },
+              child: Text("View Company List"),
             ),
           ),
           SizedBox(

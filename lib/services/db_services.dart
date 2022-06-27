@@ -8,8 +8,8 @@ CollectionReference dataCompany =
     FirebaseFirestore.instance.collection("company");
 
 class DatabaseSeeker {
-  static Stream<QuerySnapshot> getData() {
-    return dataSeeker.snapshots();
+  static Future<DocumentSnapshot<Object?>> getData(String uid) {
+    return dataSeeker.doc(uid).get();
   }
 
   static Future<void> tambahData({required classSeeker item}) async {
@@ -23,8 +23,18 @@ class DatabaseSeeker {
 }
 
 class DatabaseCompany {
-  static Stream<QuerySnapshot> getData() {
-    return dataCompany.snapshots();
+  static Future<DocumentSnapshot<Object?>> getData(String uid) {
+    return dataCompany.doc(uid).get();
+  }
+
+  static Stream<QuerySnapshot> getsAllData(String companyName) {
+    if (companyName == "") {
+      return dataCompany.snapshots();
+    } else {
+      return dataCompany
+          .orderBy("company-name")
+          .startAt([companyName]).endAt([companyName + '\uf8ff']).snapshots();
+    }
   }
 
   static Future<void> tambahData({required classCompany item}) async {
