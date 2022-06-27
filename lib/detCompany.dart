@@ -18,58 +18,68 @@ class detCompany extends StatelessWidget {
             FutureBuilder<DocumentSnapshot<Object?>>(
               future: DatabaseCompany.getData(uid),
               builder: (context, snapshot) {
-                Map<String, dynamic> data =
-                    snapshot.data!.data() as Map<String, dynamic>;
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text('Company Name: ' + data['company-name']),
+                if (snapshot.hasError) {
+                  return Text("Something went wrong");
+                }
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Text("Document does not exist");
+                }
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Card(
+                        child: ListTile(
+                          title: Text('Company Name: ' + data['company-name']),
+                        ),
+                        elevation: 8,
+                        shadowColor: Colors.pink,
+                        margin: EdgeInsets.all(20),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.white)),
                       ),
-                      elevation: 8,
-                      shadowColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text('Company Field: ' + data['company-field']),
+                      Card(
+                        child: ListTile(
+                          title:
+                              Text('Company Field: ' + data['company-field']),
+                        ),
+                        elevation: 8,
+                        shadowColor: Colors.pink,
+                        margin: EdgeInsets.all(20),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.white)),
                       ),
-                      elevation: 8,
-                      shadowColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title:
-                            Text('Company Adress: ' + data['company-adress']),
+                      Card(
+                        child: ListTile(
+                          title:
+                              Text('Company Adress: ' + data['company-adress']),
+                        ),
+                        elevation: 8,
+                        shadowColor: Colors.pink,
+                        margin: EdgeInsets.all(20),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.white)),
                       ),
-                      elevation: 8,
-                      shadowColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text('Description: ' + data['description']),
+                      Card(
+                        child: ListTile(
+                          title: Text('Description: ' + data['description']),
+                        ),
+                        elevation: 8,
+                        shadowColor: Colors.pink,
+                        margin: EdgeInsets.all(20),
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.white)),
                       ),
-                      elevation: 8,
-                      shadowColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.white)),
-                    ),
-                  ],
-                );
+                    ],
+                  );
+                }
+                return CircularProgressIndicator();
               },
             ),
             SizedBox(

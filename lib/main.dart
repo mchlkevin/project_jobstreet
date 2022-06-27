@@ -8,6 +8,7 @@ import 'package:project_uas/services/auth_services.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // @dart=2.9
 void main() async {
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'App',
+        title: 'Project UAS - Kelompok 24',
+        theme: ThemeData(fontFamily: 'Arial'),
         home: AuthWrapper(),
       ),
     );

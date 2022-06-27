@@ -38,7 +38,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: Colors.pink,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -61,7 +61,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: Colors.pink,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -84,7 +84,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: Colors.pink,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -109,7 +109,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                color: Colors.pink,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
