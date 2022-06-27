@@ -35,7 +35,7 @@ class detCompany extends StatelessWidget {
                           title: Text('Company Name: ' + data['company-name']),
                         ),
                         elevation: 8,
-                        shadowColor: Colors.green,
+                        shadowColor: Colors.pink,
                         margin: EdgeInsets.all(20),
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -47,7 +47,7 @@ class detCompany extends StatelessWidget {
                               Text('Company Field: ' + data['company-field']),
                         ),
                         elevation: 8,
-                        shadowColor: Colors.green,
+                        shadowColor: Colors.pink,
                         margin: EdgeInsets.all(20),
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -59,7 +59,7 @@ class detCompany extends StatelessWidget {
                               Text('Company Adress: ' + data['company-adress']),
                         ),
                         elevation: 8,
-                        shadowColor: Colors.green,
+                        shadowColor: Colors.pink,
                         margin: EdgeInsets.all(20),
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -70,7 +70,7 @@ class detCompany extends StatelessWidget {
                           title: Text('Description: ' + data['description']),
                         ),
                         elevation: 8,
-                        shadowColor: Colors.green,
+                        shadowColor: Colors.pink,
                         margin: EdgeInsets.all(20),
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -42,46 +42,49 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.connectionState == ConnectionState.done) {
                 Map<String, dynamic> data =
                     snapshot.data!.data() as Map<String, dynamic>;
-                return Text('Welcome ' + data['full-name']);
+                return Text(
+                  'Welcome ' + data['full-name'],
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                );
               }
               return CircularProgressIndicator();
             },
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 24),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Edit profile'),
+              icon: const Icon(Icons.person),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SeekerProfile()));
               },
-              child: Text("Edit Profile"),
             ),
           ),
           SizedBox(
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Company list'),
+              icon: const Icon(Icons.list),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => viewCompanyList()));
               },
-              child: Text("View Company List"),
             ),
           ),
           SizedBox(
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
               color: Colors.lightBlue,
@@ -97,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
               color: Colors.lightBlue,
@@ -113,15 +116,15 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Sign out'),
+              icon: const Icon(Icons.login_outlined),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 FirebaseAuth.instance.signOut();
               },
-              child: Text("Sign Out"),
             ),
           ),
         ]),

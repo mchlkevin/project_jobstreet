@@ -16,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red.shade300,
+      backgroundColor: Colors.pink.shade500,
       body: Container(
         child: Column(
           children: [
@@ -42,9 +42,9 @@ class _MainScreenState extends State<MainScreen> {
                       height: 50,
                     ),
                     Text(
-                      'Sign Up',
+                      'Sign Up / Log In',
                       style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 16,
@@ -69,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide:
-                                  BorderSide(color: Colors.red, width: 1))),
+                                  BorderSide(color: Colors.pink, width: 1))),
                     ),
                     SizedBox(
                       height: 16,

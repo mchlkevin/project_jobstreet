@@ -47,32 +47,34 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
                 Map<String, dynamic> data =
                     snapshot.data!.data() as Map<String, dynamic>;
                 return Column(children: [
-                  Text('Welcome ' + data['company-name']),
+                  Text('Welcome ' + data['company-name'],
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 ]);
               }
 
               return CircularProgressIndicator();
             },
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 24),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Edit profile'),
+              icon: const Icon(Icons.person),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CompanyProfile()));
               },
-              child: Text("Edit Profile"),
             ),
           ),
           SizedBox(
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
               color: Colors.lightBlue,
@@ -88,15 +90,15 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Sign out'),
+              icon: const Icon(Icons.logout_outlined),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 FirebaseAuth.instance.signOut();
               },
-              child: Text("Sign Out"),
             ),
           ),
         ]),
