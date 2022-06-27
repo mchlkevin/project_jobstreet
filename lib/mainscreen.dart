@@ -12,192 +12,166 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.red.shade300,
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "LOGIN / SIGN UP",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            SizedBox(
-              height: 16,
-            ),
             Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 50,
-              ),
+                padding: EdgeInsets.symmetric(vertical: 50),
+                child: Text('Job Street Apps')),
+            Expanded(
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 32),
+                constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
-                  color: Colors.lightBlue,
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      hintText: "Insert email...",
-                      hintStyle: TextStyle(color: Colors.white),
-                      border: InputBorder.none,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35))),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 50,
                     ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(
-                horizontal: 50,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.lightBlue,
-                  borderRadius: new BorderRadius.circular(10.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                  child: TextFormField(
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      hintText: "Insert password...",
-                      hintStyle: TextStyle(color: Colors.white),
-                      border: InputBorder.none,
+                    Text(
+                      'Sign Up',
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
-                    obscureText: true,
-                  ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextField(
+                      controller: emailController,
+                      onChanged: (value) {
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                          // icon: Icon(Icons.mail),
+                          prefixIcon: Icon(Icons.mail),
+                          suffixIcon: emailController.text.isEmpty
+                              ? Text('')
+                              : GestureDetector(
+                                  onTap: () {
+                                    emailController.clear();
+                                  },
+                                  child: Icon(Icons.close)),
+                          hintText: 'example@mail.com',
+                          labelText: 'Email',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextField(
+                      obscureText: isVisible,
+                      controller: passwordController,
+                      onChanged: (value) {
+                        print(value);
+                      },
+                      //
+                      decoration: InputDecoration(
+                          // icon: Icon(Icons.mail),
+                          prefixIcon: Icon(Icons.lock),
+                          suffixIcon: GestureDetector(
+                              onTap: () {
+                                isVisible = !isVisible;
+                                setState(() {});
+                              },
+                              child: Icon(isVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off)),
+                          hintText: 'type your password',
+                          labelText: 'Password',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          final String email = emailController.text.trim();
+                          final String password =
+                              passwordController.text.trim();
+
+                          if (email.isEmpty) {
+                            print("Email is Empty");
+                          } else {
+                            if (password.isEmpty) {
+                              print("Password is Empty");
+                            } else {
+                              context
+                                  .read<AuthService>()
+                                  .signUpSeeker(
+                                    email,
+                                    password,
+                                  )
+                                  .then((value) async {
+                                User? user = FirebaseAuth.instance.currentUser;
+
+                                await FirebaseFirestore.instance
+                                    .collection("job-seeker")
+                                    .doc(user?.uid)
+                                    .set({
+                                  'uid': user?.uid,
+                                  'email': email,
+                                  'password': password,
+                                  'jobSeeker': true,
+                                  'interest-on': ' ',
+                                  'major-in': ' ',
+                                  'domicile': ' ',
+                                  'full-name': ' '
+                                });
+                              });
+                            }
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          child: Text('Sign Up'),
+                        )),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          final String email = emailController.text.trim();
+                          final String password =
+                              passwordController.text.trim();
+
+                          if (email.isEmpty) {
+                            print("Email is Empty");
+                          } else {
+                            if (password.isEmpty) {
+                              print("Password is Empty");
+                            } else {
+                              context.read<AuthService>().login(
+                                    email,
+                                    password,
+                                  );
+                            }
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 10),
+                          child: Text('Login'),
+                        ))
+                  ],
                 ),
               ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              height: 40,
-              width: MediaQuery.of(context).size.width / 3,
-              child: FlatButton(
-                textColor: Colors.black,
-                onPressed: () {
-                  final String email = emailController.text.trim();
-                  final String password = passwordController.text.trim();
-
-                  if (email.isEmpty) {
-                    print("Email is Empty");
-                  } else {
-                    if (password.isEmpty) {
-                      print("Password is Empty");
-                    } else {
-                      context.read<AuthService>().login(
-                            email,
-                            password,
-                          );
-                    }
-                  }
-                },
-                child: Text(
-                  "Log In",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              height: 40,
-              width: MediaQuery.of(context).size.width / 3,
-              child: FlatButton(
-                textColor: Colors.black,
-                onPressed: () {
-                  final String email = emailController.text.trim();
-                  final String password = passwordController.text.trim();
-
-                  if (email.isEmpty) {
-                    print("Email is Empty");
-                  } else {
-                    if (password.isEmpty) {
-                      print("Password is Empty");
-                    } else {
-                      context
-                          .read<AuthService>()
-                          .signUpSeeker(
-                            email,
-                            password,
-                          )
-                          .then((value) async {
-                        User? user = FirebaseAuth.instance.currentUser;
-
-                        await FirebaseFirestore.instance
-                            .collection("job-seeker")
-                            .doc(user?.uid)
-                            .set({
-                          'uid': user?.uid,
-                          'email': email,
-                          'password': password,
-                          'jobSeeker': true
-                        });
-                      });
-                    }
-                  }
-                },
-                child: Text(
-                  "Sign Up as Job Seeker",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Container(
-              height: 40,
-              width: MediaQuery.of(context).size.width / 3,
-              child: FlatButton(
-                textColor: Colors.black,
-                onPressed: () {
-                  final String email = emailController.text.trim();
-                  final String password = passwordController.text.trim();
-
-                  if (email.isEmpty) {
-                    print("Email is Empty");
-                  } else {
-                    if (password.isEmpty) {
-                      print("Password is Empty");
-                    } else {
-                      context
-                          .read<AuthService>()
-                          .signUpCompany(
-                            email,
-                            password,
-                          )
-                          .then((value) async {
-                        User? user = FirebaseAuth.instance.currentUser;
-
-                        await FirebaseFirestore.instance
-                            .collection("company")
-                            .doc(user?.uid)
-                            .set({
-                          'uid': user?.uid,
-                          'email': email,
-                          'password': password,
-                          'jobSeeker': false
-                        });
-                      });
-                    }
-                  }
-                },
-                child: Text(
-                  "Sign Up as Company",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),

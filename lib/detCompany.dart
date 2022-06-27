@@ -23,19 +23,51 @@ class detCompany extends StatelessWidget {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text('Company Name: ' + data['company-name']),
-                    SizedBox(
-                      height: 16,
+                    Card(
+                      child: ListTile(
+                        title: Text('Company Name: ' + data['company-name']),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.green,
+                      margin: EdgeInsets.all(20),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.white)),
                     ),
-                    Text('Company Field: ' + data['company-field']),
-                    SizedBox(
-                      height: 16,
+                    Card(
+                      child: ListTile(
+                        title: Text('Company Field: ' + data['company-field']),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.green,
+                      margin: EdgeInsets.all(20),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.white)),
                     ),
-                    Text('Company Adress: ' + data['company-adress']),
-                    SizedBox(
-                      height: 16,
+                    Card(
+                      child: ListTile(
+                        title:
+                            Text('Company Adress: ' + data['company-adress']),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.green,
+                      margin: EdgeInsets.all(20),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.white)),
                     ),
-                    Text('Description: ' + data['description']),
+                    Card(
+                      child: ListTile(
+                        title: Text('Description: ' + data['description']),
+                      ),
+                      elevation: 8,
+                      shadowColor: Colors.green,
+                      margin: EdgeInsets.all(20),
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.white)),
+                    ),
                   ],
                 );
               },

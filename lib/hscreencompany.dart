@@ -47,7 +47,7 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {
                 Navigator.push(context,
@@ -63,7 +63,7 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {},
               child: Text("Buat Lowongan"),
@@ -76,7 +76,7 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {
                 FirebaseAuth.instance.signOut();

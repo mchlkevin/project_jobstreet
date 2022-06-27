@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {
                 Navigator.push(context,
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {
                 Navigator.push(context,
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {},
               child: Text("Lihat Lowongan"),
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {},
               child: Text("Lihat Status Lowongan"),
@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 40,
             width: MediaQuery.of(context).size.width / 3,
             child: FlatButton(
-              color: Colors.blueAccent,
+              color: Colors.lightBlue,
               textColor: Colors.white,
               onPressed: () {
                 FirebaseAuth.instance.signOut();
