@@ -1,0 +1,128 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_uas/seeker_profile.dart';
+import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewCompanyList.dart';
+import 'package:project_uas/class/vacancyclass.dart';
+import 'package:project_uas/detJobVacancy.dart';
+
+class viewAppliedJobVacancy extends StatefulWidget {
+  const viewAppliedJobVacancy({Key? key}) : super(key: key);
+
+  @override
+  State<viewAppliedJobVacancy> createState() => _viewAppliedJobVacancy();
+}
+
+class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy  > {
+  User? userDetection = FirebaseAuth.instance.currentUser;
+  // final _searchText = TextEditingController();
+
+  @override
+  void dispose() {
+    // _searchText.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    // _searchText.addListener(onSearch);
+    // classvacancy data = classvacancy(uid: "fmnP9M7aryH3MN6Qjvw8", companyName: "Tencent", jobDescription: ["A", "B", "C"], gaji: "4.000.000", jenisPekerjaan: "Part Time", namaPekerjaan: "Software Designer", kualifikasi: ["D", "E", "F"], lokasi: "Jakarta, Jawa Tengah, Indonesia", minimumEdukasi: "S1", skills: ["G", "H", "I"]);
+    // DatabaseJobVacancy.tambahData(item: data);
+    super.initState();
+  }
+
+  Stream<QuerySnapshot<Object?>> onSearch() {
+    setState(() {});
+
+    return DatabaseAppliedJobVacancy.getsAllData(userDetection!.uid);
+  }
+
+  Stream<QuerySnapshot<Object?>> onSearch2(String uid) {
+    setState(() {});
+    
+    return DatabaseJobVacancy.getsAllData(uid);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        margin: EdgeInsets.fromLTRB(8, 20, 8, 8),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 16,
+            ),
+            FlatButton(
+              textColor: Colors.black,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Back",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            // TextField(
+            //   controller: _searchText,
+            //   decoration: InputDecoration(
+            //     prefixIcon: Icon(Icons.search),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //       borderSide: BorderSide(color: Colors.blue),
+            //     ),
+            //   ),
+            // ),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: onSearch(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error');
+                  } else if (snapshot.hasData || snapshot.data != null) {
+                    return ListView.separated(
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot dsData = snapshot.data!.docs[index];
+                          String lvcName = dsData['job-vacancy'];
+                          
+                          return ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => detJobVacancy(
+                                      uid: lvcName,
+                                    ),
+                                  ));
+                            },
+                            title: Text(lvcName, 
+                            // style: TextStyle(backgroundColor: Color.fromARGB(141, 146, 240, 146)),
+                            ),
+                            subtitle: Text(lvcName)
+                                
+                          );
+                        },
+                        separatorBuilder: (context, index) => SizedBox(
+                              height: 8.0,
+                            ),
+                        itemCount: snapshot.data!.docs.length);
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

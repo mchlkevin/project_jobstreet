@@ -5,7 +5,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/seeker_profile.dart';
 import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewAppliedJobVacancy.dart';
 import 'package:project_uas/viewCompanyList.dart';
+import 'package:project_uas/viewJobVacancy.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -84,7 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FlatButton(
               color: Colors.lightBlue,
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => viewJobVacancy()));
+              },
               child: Text("Lihat Lowongan"),
             ),
           ),
@@ -97,7 +102,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FlatButton(
               color: Colors.lightBlue,
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => viewAppliedJobVacancy()));
+              },
               child: Text("Lihat Status Lowongan"),
             ),
           ),

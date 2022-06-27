@@ -4,9 +4,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/services/db_services.dart';
 
-class detCompany extends StatelessWidget {
+class detJobVacancy extends StatelessWidget {
   final String uid;
-  const detCompany({Key? key, required this.uid}) : super(key: key);
+  const detJobVacancy({Key? key, required this.uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class detCompany extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FutureBuilder<DocumentSnapshot<Object?>>(
-              future: DatabaseCompany.getData(uid),
+              future: DatabaseJobVacancy.getData(uid),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text("Something went wrong");
@@ -32,7 +32,7 @@ class detCompany extends StatelessWidget {
                     children: [
                       Card(
                         child: ListTile(
-                          title: Text('Company Name: ' + data['company-name']),
+                          title: Text('Company Name: ' + data['job-name']),
                         ),
                         elevation: 8,
                         shadowColor: Colors.green,
@@ -44,7 +44,7 @@ class detCompany extends StatelessWidget {
                       Card(
                         child: ListTile(
                           title:
-                              Text('Company Field: ' + data['company-field']),
+                              Text('Company Field: ' + data['gaji']),
                         ),
                         elevation: 8,
                         shadowColor: Colors.green,
@@ -56,7 +56,7 @@ class detCompany extends StatelessWidget {
                       Card(
                         child: ListTile(
                           title:
-                              Text('Company Adress: ' + data['company-adress']),
+                              Text('Company Adress: ' + data['jenis-pekerjaan']),
                         ),
                         elevation: 8,
                         shadowColor: Colors.green,
@@ -67,7 +67,7 @@ class detCompany extends StatelessWidget {
                       ),
                       Card(
                         child: ListTile(
-                          title: Text('Description: ' + data['description']),
+                          title: Text('Description: ' + data['company-name']),
                         ),
                         elevation: 8,
                         shadowColor: Colors.green,

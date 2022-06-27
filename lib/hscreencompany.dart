@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/company_profile.dart';
+import 'package:project_uas/createJobVacancy.dart';
 import 'package:project_uas/services/db_services.dart';
 
 class HomeScreenCompany extends StatefulWidget {
@@ -76,7 +77,10 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             child: FlatButton(
               color: Colors.lightBlue,
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => createJobVacancy()));
+              },
               child: Text("Buat Lowongan"),
             ),
           ),
