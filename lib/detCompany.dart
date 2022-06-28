@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_uas/sendEmail.dart';
 import 'package:project_uas/services/db_services.dart';
 
 class detCompany extends StatelessWidget {
@@ -85,13 +86,36 @@ class detCompany extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Back'),
+                  icon: const Icon(Icons.arrow_back),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Send email'),
+                  icon: const Icon(Icons.email),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => sendEmail(
+                            uid: this.uid,
+                          ),
+                        ));
+                  }),
             ),
           ],
         ),
