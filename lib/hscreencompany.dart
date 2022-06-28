@@ -76,14 +76,16 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Buat lowongan'),
+              icon: const Icon(Icons.edit),
+              backgroundColor: Colors.pink,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => createJobVacancy()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => createJobVacancy()));
               },
-              child: Text("Buat Lowongan"),
             ),
           ),
           SizedBox(
