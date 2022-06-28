@@ -5,7 +5,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/seeker_profile.dart';
 import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewAppliedJobVacancy.dart';
 import 'package:project_uas/viewCompanyList.dart';
+import 'package:project_uas/viewJobVacancy.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -84,11 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FloatingActionButton.extended(
-              label: const Text('Lihat lowongan'),
-              icon: const Icon(Icons.remove_red_eye_outlined),
-              backgroundColor: Colors.pink,
-              onPressed: () {},
+            child: FlatButton(
+              color: Colors.lightBlue,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => viewJobVacancy()));
+              },
+              child: Text("Lihat Lowongan"),
             ),
           ),
           SizedBox(
@@ -97,11 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FloatingActionButton.extended(
-              label: const Text('Status lowongan'),
-              icon: const Icon(Icons.reviews_outlined),
-              backgroundColor: Colors.pink,
-              onPressed: () {},
+            child: FlatButton(
+              color: Colors.lightBlue,
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => viewAppliedJobVacancy()));
+              },
+              child: Text("Lihat Status Lowongan"),
             ),
           ),
           SizedBox(
