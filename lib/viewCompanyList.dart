@@ -42,13 +42,16 @@ class _viewCompanyListState extends State<viewCompanyList> {
             SizedBox(
               height: 16,
             ),
-            FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Back'),
+                  icon: const Icon(Icons.arrow_back),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
             ),
             SizedBox(
               height: 16,

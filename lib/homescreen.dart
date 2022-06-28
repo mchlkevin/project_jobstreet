@@ -86,14 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Lihat lowongan'),
+              icon: const Icon(Icons.remove_red_eye_outlined),
+              backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => viewJobVacancy()));
               },
-              child: Text("Lihat Lowongan"),
             ),
           ),
           SizedBox(
@@ -102,14 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              color: Colors.lightBlue,
-              textColor: Colors.white,
+            child: FloatingActionButton.extended(
+              label: const Text('Lihat status'),
+              icon: const Icon(Icons.reviews_outlined),
+              backgroundColor: Colors.pink,
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => viewAppliedJobVacancy()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => viewAppliedJobVacancy()));
               },
-              child: Text("Lihat Status Lowongan"),
             ),
           ),
           SizedBox(

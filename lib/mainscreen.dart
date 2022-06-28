@@ -102,76 +102,130 @@ class _MainScreenState extends State<MainScreen> {
                     SizedBox(
                       height: 16,
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          final String email = emailController.text.trim();
-                          final String password =
-                              passwordController.text.trim();
+                    Container(
+                      height: 45,
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                          label: const Text('Sign up (Job seeker)'),
+                          icon: const Icon(Icons.person),
+                          backgroundColor: Colors.pink,
+                          onPressed: () {
+                            final String email = emailController.text.trim();
+                            final String password =
+                                passwordController.text.trim();
 
-                          if (email.isEmpty) {
-                            print("Email is Empty");
-                          } else {
-                            if (password.isEmpty) {
-                              print("Password is Empty");
+                            if (email.isEmpty) {
+                              print("Email is Empty");
                             } else {
-                              context
-                                  .read<AuthService>()
-                                  .signUpSeeker(
-                                    email,
-                                    password,
-                                  )
-                                  .then((value) async {
-                                User? user = FirebaseAuth.instance.currentUser;
+                              if (password.isEmpty) {
+                                print("Password is Empty");
+                              } else {
+                                context
+                                    .read<AuthService>()
+                                    .signUpSeeker(
+                                      email,
+                                      password,
+                                    )
+                                    .then((value) async {
+                                  User? user =
+                                      FirebaseAuth.instance.currentUser;
 
-                                await FirebaseFirestore.instance
-                                    .collection("job-seeker")
-                                    .doc(user?.uid)
-                                    .set({
-                                  'uid': user?.uid,
-                                  'email': email,
-                                  'password': password,
-                                  'jobSeeker': true,
-                                  'interest-on': ' ',
-                                  'major-in': ' ',
-                                  'domicile': ' ',
-                                  'full-name': ' '
+                                  await FirebaseFirestore.instance
+                                      .collection("job-seeker")
+                                      .doc(user?.uid)
+                                      .set({
+                                    'uid': user?.uid,
+                                    'email': email,
+                                    'password': password,
+                                    'jobSeeker': true,
+                                    'interest-on': ' ',
+                                    'major-in': ' ',
+                                    'domicile': ' ',
+                                    'full-name': ' ',
+                                  });
                                 });
-                              });
+                              }
                             }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          child: Text('Sign Up'),
-                        )),
+                          }),
+                    ),
                     SizedBox(
                       height: 16,
                     ),
-                    ElevatedButton(
-                        onPressed: () {
-                          final String email = emailController.text.trim();
-                          final String password =
-                              passwordController.text.trim();
+                    Container(
+                      height: 45,
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                          label: const Text('Sign up (Company)'),
+                          icon: const Icon(Icons.work),
+                          backgroundColor: Colors.pink,
+                          onPressed: () {
+                            final String email = emailController.text.trim();
+                            final String password =
+                                passwordController.text.trim();
 
-                          if (email.isEmpty) {
-                            print("Email is Empty");
-                          } else {
-                            if (password.isEmpty) {
-                              print("Password is Empty");
+                            if (email.isEmpty) {
+                              print("Email is Empty");
                             } else {
-                              context.read<AuthService>().login(
-                                    email,
-                                    password,
-                                  );
+                              if (password.isEmpty) {
+                                print("Password is Empty");
+                              } else {
+                                context
+                                    .read<AuthService>()
+                                    .signUpCompany(
+                                      email,
+                                      password,
+                                    )
+                                    .then((value) async {
+                                  User? user =
+                                      FirebaseAuth.instance.currentUser;
+
+                                  await FirebaseFirestore.instance
+                                      .collection("company")
+                                      .doc(user?.uid)
+                                      .set({
+                                    'uid': user?.uid,
+                                    'email': email,
+                                    'password': password,
+                                    'jobSeeker': false,
+                                    'company-name': ' ',
+                                    'company-field': ' ',
+                                    'description': ' ',
+                                    'company-adress': ' '
+                                  });
+                                });
+                              }
                             }
-                          }
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 10),
-                          child: Text('Login'),
-                        ))
+                          }),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      height: 45,
+                      width: 250,
+                      child: FloatingActionButton.extended(
+                          label: const Text('Log In'),
+                          icon: const Icon(Icons.login),
+                          backgroundColor: Colors.pink,
+                          onPressed: () {
+                            final String email = emailController.text.trim();
+                            final String password =
+                                passwordController.text.trim();
+
+                            if (email.isEmpty) {
+                              print("Email is Empty");
+                            } else {
+                              if (password.isEmpty) {
+                                print("Password is Empty");
+                              } else {
+                                context.read<AuthService>().login(
+                                      email,
+                                      password,
+                                    );
+                              }
+                            }
+                          }),
+                    ),
                   ],
                 ),
               ),

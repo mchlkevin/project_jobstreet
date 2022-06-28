@@ -31,6 +31,10 @@ class AuthService {
           'uid': user?.uid,
           'email': email,
           'password': password,
+          'interest-on': ' ',
+          'major-in': ' ',
+          'domicile': ' ',
+          'full-name': ' ',
         });
       });
       return "Signed Up";
@@ -53,6 +57,10 @@ class AuthService {
           'uid': user?.uid,
           'email': email,
           'password': password,
+          'company-name': ' ',
+          'company-field': ' ',
+          'description': ' ',
+          'company-adress': ' '
         });
       });
       return "Signed Up";

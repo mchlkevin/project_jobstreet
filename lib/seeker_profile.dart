@@ -157,34 +157,37 @@ class _SeekerProfileState extends State<SeekerProfile> {
           SizedBox(
             height: 16,
           ),
-          FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                final dt = classSeeker(
-                    uid: userDetection!.uid,
-                    major: cMajorIn.text,
-                    fullName: cFullName.text,
-                    interestOn: cInterestOn.text,
-                    domicile: cDomicile.text);
-                DatabaseSeeker.tambahData(item: dt);
-                Navigator.pop(context);
-              },
-              child: Text('Simpan data',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+          Container(
+            height: 45,
+            width: MediaQuery.of(context).size.width / 3,
+            child: FloatingActionButton.extended(
+                label: const Text('Update profile'),
+                icon: const Icon(Icons.update),
+                backgroundColor: Colors.pink,
+                onPressed: () {
+                  final dt = classSeeker(
+                      uid: userDetection!.uid,
+                      major: cMajorIn.text,
+                      fullName: cFullName.text,
+                      interestOn: cInterestOn.text,
+                      domicile: cDomicile.text);
+                  DatabaseSeeker.tambahData(item: dt);
+                  Navigator.pop(context);
+                }),
+          ),
           SizedBox(
             height: 16,
           ),
           Container(
-            height: 40,
+            height: 45,
             width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-            ),
+            child: FloatingActionButton.extended(
+                label: const Text('Back'),
+                icon: const Icon(Icons.arrow_back),
+                backgroundColor: Colors.pink,
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
           ),
           SizedBox(
             height: 16,
