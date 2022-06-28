@@ -3,6 +3,9 @@ import 'package:project_uas/class/companyclass.dart';
 import 'package:project_uas/class/seekerclass.dart';
 import 'package:project_uas/class/vacancyclass.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 CollectionReference dataSeeker =
     FirebaseFirestore.instance.collection("job-seeker");
 CollectionReference dataCompany =
@@ -97,6 +100,7 @@ class DatabaseAppliedJobVacancy {
     }
   }
 
+  
   static Future<void> tambahData({required classvacancy item}) async {
     DocumentReference docRef = dataApplied.doc(item.uid);
     
@@ -109,6 +113,22 @@ class DatabaseAppliedJobVacancy {
   
 }
 
+// T? tryCast<T>(value) {
+//   return value == null ? null : value as T;
+// }
+
+// class DocumentReferenceJsonConverter
+//     implements JsonConverter<DocumentReference?, Object?> {
+//   const DocumentReferenceJsonConverter();
+
+//   @override
+//   DocumentReference? fromJson(Object? json) {
+//     return tryCast<DocumentReference>(json);
+//   }
+
+//   @override
+//   Object? toJson(DocumentReference? documentReference) => documentReference;
+// }
 
 
 
