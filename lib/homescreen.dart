@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('Lihat lowongan'),
+              label: const Text('View Job Vacancy'),
               icon: const Icon(Icons.remove_red_eye_outlined),
               backgroundColor: Colors.pink,
               onPressed: () {
@@ -103,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('Lihat status'),
-              icon: const Icon(Icons.reviews_outlined),
+              label: const Text('View Job Vacancy status'),
+              icon: const Icon(Icons.history),
               backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(

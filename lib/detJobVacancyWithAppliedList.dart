@@ -5,12 +5,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/class/appliedclass.dart';
 import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewCreatedJobVacancy.dart';
+import 'package:project_uas/ViewJobVacancyAppliedList.dart';
 
-class detJobVacancy extends StatelessWidget {
+class detJobVacancyWithAppliedList extends StatelessWidget {
   final String uid;
   User? userDetection = FirebaseAuth.instance.currentUser;
 
-  detJobVacancy({Key? key, required this.uid}) : super(key: key);
+  detJobVacancyWithAppliedList({Key? key, required this.uid}) : super(key: key);
 
 
   @override
@@ -232,7 +234,20 @@ class detJobVacancy extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Applied List'),
+                  icon: const Icon(Icons.person),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ViewJobVacancyAppliedList(jobVacancyUID: uid,)));
+                  }),
+            ),
           ],
         ),
       ),

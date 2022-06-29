@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.project_uas">
   
-  
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
   <!-- <queries>
     <itent>
         <action android:name="android.intent.action.SEND"/>

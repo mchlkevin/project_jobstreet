@@ -6,6 +6,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/company_profile.dart';
 import 'package:project_uas/createJobVacancy.dart';
 import 'package:project_uas/services/db_services.dart';
+import 'package:project_uas/viewCreatedJobVacancy.dart';
+
 
 class HomeScreenCompany extends StatefulWidget {
   @override
@@ -78,13 +80,31 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
               label: const Text('Buat lowongan'),
-              icon: const Icon(Icons.edit),
+              icon: const Icon(Icons.add),
               backgroundColor: Colors.pink,
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => createJobVacancy()));
+              },
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Container(
+            height: 45,
+            width: MediaQuery.of(context).size.width / 3,
+            child: FloatingActionButton.extended(
+              label: const Text('Lihat lowongan'),
+              icon: const Icon(Icons.assessment ),
+              backgroundColor: Colors.pink,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => viewCreatedJobVacancy()));
               },
             ),
           ),

@@ -8,15 +8,17 @@ import 'package:project_uas/services/db_services.dart';
 import 'package:project_uas/viewCompanyList.dart';
 import 'package:project_uas/class/vacancyclass.dart';
 import 'package:project_uas/detJobVacancy.dart';
+import 'package:project_uas/assessmentPage.dart';
 
-class viewAppliedJobVacancy extends StatefulWidget {
-  const viewAppliedJobVacancy({Key? key}) : super(key: key);
+class ViewJobVacancyAppliedList extends StatefulWidget {
+  final jobVacancyUID;
+  const ViewJobVacancyAppliedList({Key? key, required this.jobVacancyUID}) : super(key: key);
 
   @override
-  State<viewAppliedJobVacancy> createState() => _viewAppliedJobVacancy();
+  State<ViewJobVacancyAppliedList> createState() => _ViewJobVacancyAppliedList();
 }
 
-class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
+class _ViewJobVacancyAppliedList extends State<ViewJobVacancyAppliedList> {
   User? userDetection = FirebaseAuth.instance.currentUser;
   // final _searchText = TextEditingController();
 
@@ -37,14 +39,14 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
   Stream<QuerySnapshot<Object?>> onSearch() {
     setState(() {});
 
-    return DatabaseAppliedJobVacancy.getsAllData(userDetection!.uid);
+    return DatabaseAppliedJobVacancy.getsAllDataFromJobVacancy(widget.jobVacancyUID);
   }
 
-  Stream<QuerySnapshot<Object?>> onSearch2(String uid) {
-    setState(() {});
+  // Stream<QuerySnapshot<Object?>> onSearch2(String uid) {
+  //   setState(() {});
 
-    return DatabaseJobVacancy.getsAllData(uid);
-  }
+  //   return DatabaseJobVacancy.getsAllData(uid);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +94,9 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                           itemBuilder: (context, index) {
                             DocumentSnapshot dsData =
                                 snapshot.data!.docs[index];
-                            String lvcName = dsData['job-vacancy'];
+                            String lvcName = dsData['job-seeker'];
                             String lvcStatus = dsData['status'];
+                            String lvcJobVacancy = dsData['job-vacancy'];
                             Color statusCol;
                             if (lvcStatus == 'Failed') {
                               statusCol = Color.fromARGB(177, 255, 0, 0);
@@ -108,8 +111,9 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => detJobVacancy(
+                                      builder: (context) => assessmentPage(
                                         uid: lvcName,
+                                        uidJobVacancy: lvcJobVacancy,
                                       ),
                                     ));
                               },
@@ -121,7 +125,7 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                                     children: [
                                       FutureBuilder<DocumentSnapshot<Object?>>(
                                         future:
-                                            DatabaseJobVacancy.getData(lvcName),
+                                            DatabaseSeeker.getData(lvcName),
                                         builder: (context, snapshot2) {
                                           if (snapshot2.hasError) {
                                             return Text("Something went wrong");
@@ -140,7 +144,7 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                                                 // Row(
                                                 //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 //   children: [
-                                                Text(data['job-name']);
+                                                Text(data['full-name']);
                                             //   ],
                                             // );
                                           }
@@ -170,7 +174,7 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                               ),
                               subtitle:
                                   FutureBuilder<DocumentSnapshot<Object?>>(
-                                future: DatabaseJobVacancy.getData(lvcName),
+                                future: DatabaseSeeker.getData(lvcName),
                                 builder: (context, snapshot2) {
                                   if (snapshot2.hasError) {
                                     return Text("Something went wrong");
@@ -187,7 +191,7 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
                                         // Row(
                                         //   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         //   children: [
-                                        Text(data['lokasi']);
+                                        Text(data['email']);
                                     //   ],
                                     // );
                                   }

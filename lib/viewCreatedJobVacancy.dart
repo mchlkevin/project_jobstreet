@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_uas/detJobVacancyWithAppliedList.dart';
 import 'package:project_uas/seeker_profile.dart';
 import 'package:project_uas/services/db_services.dart';
 import 'package:project_uas/viewCompanyList.dart';
@@ -10,15 +11,14 @@ import 'package:project_uas/class/vacancyclass.dart';
 import 'package:project_uas/detJobVacancy.dart';
 import 'package:project_uas/detJobVacancyWithApply.dart';
 
-
-class viewJobVacancy extends StatefulWidget {
-  const viewJobVacancy({Key? key}) : super(key: key);
+class viewCreatedJobVacancy extends StatefulWidget {
+  const viewCreatedJobVacancy({Key? key}) : super(key: key);
 
   @override
-  State<viewJobVacancy> createState() => _viewJobVacancyState();
+  State<viewCreatedJobVacancy> createState() => _viewCreatedJobVacancy();
 }
 
-class _viewJobVacancyState extends State<viewJobVacancy> {
+class _viewCreatedJobVacancy extends State<viewCreatedJobVacancy> {
   User? userDetection = FirebaseAuth.instance.currentUser;
   // final _searchText = TextEditingController();
 
@@ -39,7 +39,7 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
   Stream<QuerySnapshot<Object?>> onSearch() {
     setState(() {});
 
-    return DatabaseJobVacancy.getsAllData("");
+    return DatabaseJobVacancy.getsAllData(userDetection!.uid);
   }
 
   @override
@@ -106,7 +106,8 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => detJobVacancyWithApply(
+                                      builder: (context) =>
+                                          detJobVacancyWithAppliedList(
                                         uid: dsData['uid'],
                                       ),
                                     ));
@@ -118,37 +119,12 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
                               subtitle: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      FutureBuilder<DocumentSnapshot<Object?>>(
-                                        future: DatabaseCompany.getData(comp),
-                                        builder: (context, snapshot2) {
-                                          if (snapshot2.hasError) {
-                                            return Text("Something went wrong");
-                                          }
-                                          if (snapshot2.hasData &&
-                                              !snapshot2.data!.exists) {
-                                            return Text(
-                                                "Document does not exist");
-                                          }
-                                          if (snapshot2.connectionState ==
-                                              ConnectionState.done) {
-                                            Map<String, dynamic> data =
-                                                snapshot2.data!.data()
-                                                    as Map<String, dynamic>;
-                                            return
-                                                // Row(
-                                                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                //   children: [
-                                                Text(data['company-name']);
-                                            //   ],
-                                            // );
-                                          }
-                                          return Text("Loading Company");
-                                        },
-                                      ),
-                                  Text(lvcLoc)
-
+                                      
+                                      Text(lvcjobtype),
+                                      Text(lvcLoc)
                                     ],
                                   ),
 

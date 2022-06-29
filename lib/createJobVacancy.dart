@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/class/companyclass.dart';
 import 'package:project_uas/class/vacancyclass.dart';
 import 'package:project_uas/services/db_services.dart';
+import 'package:uuid/uuid.dart';
 
 class createJobVacancy extends StatefulWidget {
   const createJobVacancy({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class createJobVacancy extends StatefulWidget {
 }
 
 class _createJobVacancy extends State<createJobVacancy> {
-  TextEditingController companyName = new TextEditingController();
+  // TextEditingController companyName = new TextEditingController();
   TextEditingController jobDesc = new TextEditingController();
   TextEditingController gaji = new TextEditingController();
   TextEditingController jenisPekerjaan = new TextEditingController();
@@ -25,11 +26,13 @@ class _createJobVacancy extends State<createJobVacancy> {
   TextEditingController skills = new TextEditingController();
 
   User? userDetection = FirebaseAuth.instance.currentUser;
+  var uuid = Uuid();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ListView( children: [
+        child: ListView(children: [
           SizedBox(
             height: 16,
           ),
@@ -38,59 +41,36 @@ class _createJobVacancy extends State<createJobVacancy> {
           SizedBox(
             height: 16,
           ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 50,
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.lightBlue,
-                borderRadius: new BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                child: TextFormField(
-                  controller: companyName,
-                  decoration: InputDecoration(
-                    hintText: "Insert company name...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-          ),
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Color.fromARGB(255, 220, 236, 244),
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
                 padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-                child: TextFormField(
+                child: TextField(
                   controller: namaPekerjaan,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Name...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Job Name",
+                      hintText: "Enter Job Name"),
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -98,10 +78,9 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: jobDesc,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Description...(use ; to split the item)",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Job Description (Use ; to split the item)",
+                      hintText: "Enter Job Description"),
                 ),
               ),
             ),
@@ -109,14 +88,13 @@ class _createJobVacancy extends State<createJobVacancy> {
           SizedBox(
             height: 16,
           ),
-
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -124,23 +102,21 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: jenisPekerjaan,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Type...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: 'Job Type',
+                      hintText: "Enter Job Type"),
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -148,22 +124,21 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: gaji,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Salary...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Salary",
+                      hintText: "Enter Job Salary"),
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -171,22 +146,21 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: kualifikasi,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Qualification...(use ; to split the item)",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Qualification (Use ; to split the item)",
+                      hintText: "Enter Job Qualification"),
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -194,22 +168,21 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: lokasi,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Location...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Location",
+                      hintText: "Enter Job Location"),
                 ),
               ),
             ),
           ),
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -217,23 +190,21 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: minimumEdukasi,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Minimum Education Requirement...",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Minimum Education",
+                      hintText: "Enter Job Minimum Education"),
                 ),
               ),
             ),
           ),
-          
           SizedBox(height: 16),
-          Container(
+          Card(
             margin: EdgeInsets.symmetric(
               horizontal: 50,
             ),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.lightBlue,
+                // color: Colors.lightBlue,
                 borderRadius: new BorderRadius.circular(10.0),
               ),
               child: Padding(
@@ -241,10 +212,9 @@ class _createJobVacancy extends State<createJobVacancy> {
                 child: TextFormField(
                   controller: skills,
                   decoration: InputDecoration(
-                    hintText: "Insert Job Skills...(use ; to split the item)",
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: InputBorder.none,
-                  ),
+                      border: InputBorder.none,
+                      labelText: "Skills (Use ; to split the item)",
+                      hintText: "Enter Job Skills"),
                 ),
               ),
             ),
@@ -253,39 +223,45 @@ class _createJobVacancy extends State<createJobVacancy> {
           SizedBox(
             height: 16,
           ),
-          FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                final data = classvacancy(
-                  uid: "",
-                  companyName: companyName.text,
-                  jobDescription: jobDesc.text.split(';'),
-                  gaji: gaji.text,
-                  jenisPekerjaan: jenisPekerjaan.text,
-                  namaPekerjaan: namaPekerjaan.text,
-                  kualifikasi: kualifikasi.text.split(';'),
-                  lokasi: lokasi.text,
-                  minimumEdukasi: minimumEdukasi.text,
-                  skills: skills.text.split(';')
-                );
-                DatabaseJobVacancy.tambahData(item: data);
-                Navigator.pop(context);
-              },
-              child: Text('Simpan data',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+          Center(
+            child: Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Simpan Data'),
+                  icon: const Icon(Icons.save),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    final data = classvacancy(
+                        uid: uuid.v4(),
+                        companyName: userDetection!.uid,
+                        jobDescription: jobDesc.text.split(';'),
+                        gaji: gaji.text,
+                        jenisPekerjaan: jenisPekerjaan.text,
+                        namaPekerjaan: namaPekerjaan.text,
+                        kualifikasi: kualifikasi.text.split(';'),
+                        lokasi: lokasi.text,
+                        minimumEdukasi: minimumEdukasi.text,
+                        skills: skills.text.split(';'));
+                    DatabaseJobVacancy.tambahData(item: data);
+                    Navigator.pop(context);
+                  }),
+            ),
+          ),
           SizedBox(
             height: 16,
           ),
-          Container(
-            height: 40,
-            width: MediaQuery.of(context).size.width / 3,
-            child: FlatButton(
-              textColor: Colors.black,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Back",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          Center(
+            child: Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Back'),
+                  icon: const Icon(Icons.arrow_back),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }),
             ),
           ),
           SizedBox(

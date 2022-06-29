@@ -6,11 +6,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_uas/class/appliedclass.dart';
 import 'package:project_uas/services/db_services.dart';
 
-class detJobVacancy extends StatelessWidget {
+class detJobVacancyWithApply extends StatelessWidget {
   final String uid;
   User? userDetection = FirebaseAuth.instance.currentUser;
 
-  detJobVacancy({Key? key, required this.uid}) : super(key: key);
+  detJobVacancyWithApply({Key? key, required this.uid}) : super(key: key);
 
 
   @override
@@ -232,7 +232,19 @@ class detJobVacancy extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width / 3,
+              child: FloatingActionButton.extended(
+                  label: const Text('Apply'),
+                  icon: const Icon(Icons.add),
+                  backgroundColor: Colors.pink,
+                  onPressed: () {
+                    appliedclass items = appliedclass(uidPerson: userDetection!.uid, uidJobVacancy: uid, Status: "Pending");
+                    DatabaseAppliedJobVacancy.tambahData(item: items);
+                    Navigator.pop(context);
+                  }),
+            ),
           ],
         ),
       ),

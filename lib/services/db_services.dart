@@ -1,4 +1,5 @@
   import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_uas/class/appliedclass.dart';
 import 'package:project_uas/class/companyclass.dart';
 import 'package:project_uas/class/seekerclass.dart';
 import 'package:project_uas/class/vacancyclass.dart';
@@ -74,7 +75,7 @@ class DatabaseJobVacancy {
   }
 
   static Future<void> tambahData({required classvacancy item}) async {
-    DocumentReference docRef = dataLowongan.doc();
+    DocumentReference docRef = dataLowongan.doc(item.uid);
 
     await docRef
         .set(item.toJson())
@@ -99,19 +100,53 @@ class DatabaseAppliedJobVacancy {
           .startAt([uid]).endAt([uid + '\uf8ff']).snapshots();
     }
   }
+  static Stream<QuerySnapshot> getsAllDataFromJobVacancy(String uid) {
+    if (uid == "") {
+      return dataApplied.snapshots();
+    } else {
+      return dataApplied
+          .orderBy("job-vacancy")
+          .startAt([uid]).endAt([uid + '\uf8ff']).snapshots();
+    }
+  }
 
+  static Future<bool> doesApplyAlreadyExist(String jobSeekerName, String JobVacancyName) async {
+  final QuerySnapshot result = await FirebaseFirestore.instance
+    .collection('applied-job')
+    .where('job-vacancy', isEqualTo: JobVacancyName).where('job-seeker', isEqualTo: jobSeekerName)
+    .limit(1)
+    .get();
   
-  static Future<void> tambahData({required classvacancy item}) async {
-    DocumentReference docRef = dataApplied.doc(item.uid);
-    
-    await docRef
+  final List<DocumentSnapshot> documents = result.docs;
+
+  return documents.length == 1;
+}
+  
+  static Future<void> tambahData({required appliedclass item}) async {
+    DocumentReference docRef = dataApplied.doc(item.uidJobVacancy + item.uidPerson);
+    bool a = await doesApplyAlreadyExist(item.uidPerson, item.uidJobVacancy);
+    if (a == false){
+      await docRef
         .set(item.toJson())
         .whenComplete(() => print("Data berhasil diperbarui"))
         .catchError((e) => print(e));
+    }
+    
+    
+    
+  }
+
+  static Future<void> ubahData({required appliedclass item}) async {
+    DocumentReference docRef = dataApplied.doc(item.uidJobVacancy + item.uidPerson);
+    await docRef
+    .update(item.toJson())
+    .whenComplete(() => print("Data Berhasil Diubah"))
+    .catchError((e)=>print(e));
   }
 
   
 }
+
 
 // T? tryCast<T>(value) {
 //   return value == null ? null : value as T;
