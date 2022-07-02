@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('View Job Vacancy'),
+              label: const Text('View Job'),
               icon: const Icon(Icons.remove_red_eye_outlined),
               backgroundColor: Colors.pink,
               onPressed: () {

@@ -79,7 +79,7 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('Buat lowongan'),
+              label: const Text('Create Job'),
               icon: const Icon(Icons.add),
               backgroundColor: Colors.pink,
               onPressed: () {
@@ -97,7 +97,7 @@ class _HomeScreenCompanyState extends State<HomeScreenCompany> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('Lihat lowongan'),
+              label: const Text('Created Job'),
               icon: const Icon(Icons.assessment ),
               backgroundColor: Colors.pink,
               onPressed: () {

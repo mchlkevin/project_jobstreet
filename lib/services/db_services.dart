@@ -1,4 +1,4 @@
-  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_uas/class/appliedclass.dart';
 import 'package:project_uas/class/companyclass.dart';
 import 'package:project_uas/class/seekerclass.dart';
@@ -16,7 +16,6 @@ CollectionReference dataLowongan =
 CollectionReference dataApplied =
     FirebaseFirestore.instance.collection("applied-job");
 
-
 class DatabaseSeeker {
   static Future<DocumentSnapshot<Object?>> getData(String uid) {
     return dataSeeker.doc(uid).get();
@@ -24,7 +23,7 @@ class DatabaseSeeker {
 
   static Future<void> tambahData({required classSeeker item}) async {
     DocumentReference docRef = dataSeeker.doc(item.uid);
-    
+
     await docRef
         .update(item.toJson())
         .whenComplete(() => print("Data berhasil diperbarui"))
@@ -57,8 +56,6 @@ class DatabaseCompany {
   }
 }
 
-
-
 class DatabaseJobVacancy {
   static Future<DocumentSnapshot<Object?>> getData(String uid) {
     return dataLowongan.doc(uid).get();
@@ -82,8 +79,6 @@ class DatabaseJobVacancy {
         .whenComplete(() => print("Data berhasil diperbarui"))
         .catchError((e) => print(e));
   }
-
-  
 }
 
 class DatabaseAppliedJobVacancy {
@@ -100,6 +95,7 @@ class DatabaseAppliedJobVacancy {
           .startAt([uid]).endAt([uid + '\uf8ff']).snapshots();
     }
   }
+
   static Stream<QuerySnapshot> getsAllDataFromJobVacancy(String uid) {
     if (uid == "") {
       return dataApplied.snapshots();
@@ -110,46 +106,40 @@ class DatabaseAppliedJobVacancy {
     }
   }
 
-  
+  static Future<bool> doesApplyAlreadyExist(
+      String jobSeekerName, String JobVacancyName) async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('applied-job')
+        .where('job-vacancy', isEqualTo: JobVacancyName)
+        .where('job-seeker', isEqualTo: jobSeekerName)
+        .limit(1)
+        .get();
 
-  static Future<bool> doesApplyAlreadyExist(String jobSeekerName, String JobVacancyName) async {
-  final QuerySnapshot result = await FirebaseFirestore.instance
-    .collection('applied-job')
-    .where('job-vacancy', isEqualTo: JobVacancyName).where('job-seeker', isEqualTo: jobSeekerName)
-    .limit(1)
-    .get();
-  
-  final List<DocumentSnapshot> documents = result.docs;
+    final List<DocumentSnapshot> documents = result.docs;
 
-  
-  return documents.length == 1;
-}
-  
-  static Future<void> tambahData({required appliedclass item}) async {
-    DocumentReference docRef = dataApplied.doc(item.uidJobVacancy + item.uidPerson);
-    bool a = await doesApplyAlreadyExist(item.uidPerson, item.uidJobVacancy);
-    if (a == false){
-      await docRef
-        .set(item.toJson())
-        .whenComplete(() => print("Data berhasil diperbarui"))
-        .catchError((e) => print(e));
-    }
-    
-    
-    
+    return documents.length == 1;
   }
 
-
+  static Future<void> tambahData({required appliedclass item}) async {
+    DocumentReference docRef =
+        dataApplied.doc(item.uidJobVacancy + item.uidPerson);
+    bool a = await doesApplyAlreadyExist(item.uidPerson, item.uidJobVacancy);
+    if (a == false) {
+      await docRef
+          .set(item.toJson())
+          .whenComplete(() => print("Data berhasil diperbarui"))
+          .catchError((e) => print(e));
+    }
+  }
 
   static Future<void> ubahData({required appliedclass item}) async {
-    DocumentReference docRef = dataApplied.doc(item.uidJobVacancy + item.uidPerson);
+    DocumentReference docRef =
+        dataApplied.doc(item.uidJobVacancy + item.uidPerson);
     await docRef
-    .update(item.toJson())
-    .whenComplete(() => print("Data Berhasil Diubah"))
-    .catchError((e)=>print(e));
+        .update(item.toJson())
+        .whenComplete(() => print("Data Berhasil Diubah"))
+        .catchError((e) => print(e));
   }
-
-  
 }
 
 
