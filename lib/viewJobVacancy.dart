@@ -10,7 +10,6 @@ import 'package:project_uas/class/vacancyclass.dart';
 import 'package:project_uas/detJobVacancy.dart';
 import 'package:project_uas/detJobVacancyWithApply.dart';
 
-
 class viewJobVacancy extends StatefulWidget {
   const viewJobVacancy({Key? key}) : super(key: key);
 
@@ -36,10 +35,25 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
     super.initState();
   }
 
-  Stream<QuerySnapshot<Object?>> onSearch() {
+  static Future<int> thisExpectedGaji(String uid) async{
+    final QuerySnapshot result = await FirebaseFirestore.instance
+    .collection('job-seeker')
+    .where('uid', isEqualTo: uid)
+    .limit(1)
+    .get();
+    
+    print(result);
+  
+  final DocumentSnapshot documents = result.docs[0];
+  int gaji = documents['expected-gaji'];
+  return gaji;
+  }
+  
+  Future<QuerySnapshot<Object?>> onSearch()async {
     setState(() {});
-
-    return DatabaseJobVacancy.getsAllData("");
+    var a = await thisExpectedGaji(userDetection!.uid);
+    
+    return DatabaseJobVacancy.getsAllDataWithSort(a);
   }
 
   @override
@@ -77,12 +91,13 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
             //   ),
             // ),
             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: onSearch(),
+              child: FutureBuilder<QuerySnapshot<Object?>>(
+                future: onSearch(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Text('Error');
-                  } else if (snapshot.hasData || snapshot.data != null) {
+                  // } else if (snapshot.hasData || snapshot.data != null) {
+                  }else {
                     return Card(
                       child: ListView.separated(
                           itemBuilder: (context, index) {
@@ -106,7 +121,8 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => detJobVacancyWithApply(
+                                      builder: (context) =>
+                                          detJobVacancyWithApply(
                                         uid: dsData['uid'],
                                       ),
                                     ));
@@ -118,7 +134,8 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
                               subtitle: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       FutureBuilder<DocumentSnapshot<Object?>>(
                                         future: DatabaseCompany.getData(comp),
@@ -147,8 +164,7 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
                                           return Text("Loading Company");
                                         },
                                       ),
-                                  Text(lvcLoc)
-
+                                      Text(lvcLoc)
                                     ],
                                   ),
 

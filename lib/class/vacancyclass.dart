@@ -1,6 +1,7 @@
 class classvacancy {
-  final String uid, companyName, gaji, jenisPekerjaan, namaPekerjaan, lokasi, minimumEdukasi;
+  final String uid, companyName, jenisPekerjaan, namaPekerjaan, lokasi, minimumEdukasi;
   final List jobDescription, kualifikasi, skills;
+  final int gaji;
   classvacancy(
       {required this.uid,
       required this.companyName,

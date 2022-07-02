@@ -18,6 +18,7 @@ class _SeekerProfileState extends State<SeekerProfile> {
   TextEditingController cInterestOn = new TextEditingController();
   TextEditingController cLastEducation = new TextEditingController();
   TextEditingController cMajorIn = new TextEditingController();
+  TextEditingController cExpGaji = new TextEditingController();
 
   User? userDetection = FirebaseAuth.instance.currentUser;
 
@@ -158,6 +159,31 @@ class _SeekerProfileState extends State<SeekerProfile> {
             height: 16,
           ),
           Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 50,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.pink,
+                borderRadius: new BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                child: TextFormField(
+                  controller: cExpGaji,
+                  decoration: InputDecoration(
+                    hintText: "Insert Expected Salary...",
+                    hintStyle: TextStyle(color: Colors.white),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Container(
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
@@ -170,7 +196,8 @@ class _SeekerProfileState extends State<SeekerProfile> {
                       major: cMajorIn.text,
                       fullName: cFullName.text,
                       interestOn: cInterestOn.text,
-                      domicile: cDomicile.text);
+                      domicile: cDomicile.text,
+                      expectedGaji: int.parse(cExpGaji.text));
                   DatabaseSeeker.tambahData(item: dt);
                   Navigator.pop(context);
                 }),

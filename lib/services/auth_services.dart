@@ -35,6 +35,7 @@ class AuthService {
           'major-in': ' ',
           'domicile': ' ',
           'full-name': ' ',
+          'expected-salary': 0,
         });
       });
       return "Signed Up";

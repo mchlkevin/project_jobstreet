@@ -66,9 +66,19 @@ class DatabaseJobVacancy {
       return dataLowongan.snapshots();
     } else {
       return dataLowongan
-          .orderBy("company-name")
+          .orderBy("")
           .startAt([companyName]).endAt([companyName + '\uf8ff']).snapshots();
     }
+  }
+  static Future<QuerySnapshot> getsAllDataWithSort(int expectedGaji) {
+    // if (expectedGaji == 0) {
+    //   return dataLowongan.get();
+    // } else {
+      Future<QuerySnapshot> a = dataLowongan
+          .where('gaji', isGreaterThanOrEqualTo: expectedGaji)
+          .get();
+      return a;
+    // }
   }
 
   static Future<void> tambahData({required classvacancy item}) async {

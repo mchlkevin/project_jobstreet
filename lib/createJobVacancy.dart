@@ -236,7 +236,7 @@ class _createJobVacancy extends State<createJobVacancy> {
                         uid: uuid.v4(),
                         companyName: userDetection!.uid,
                         jobDescription: jobDesc.text.split(';'),
-                        gaji: gaji.text,
+                        gaji: int.parse(gaji.text),
                         jenisPekerjaan: jenisPekerjaan.text,
                         namaPekerjaan: namaPekerjaan.text,
                         kualifikasi: kualifikasi.text.split(';'),

@@ -40,11 +40,11 @@ class _viewAppliedJobVacancy extends State<viewAppliedJobVacancy> {
     return DatabaseAppliedJobVacancy.getsAllData(userDetection!.uid);
   }
 
-  Stream<QuerySnapshot<Object?>> onSearch2(String uid) {
-    setState(() {});
+  // Stream<QuerySnapshot<Object?>> onSearch2(String uid) {
+  //   setState(() {});
 
-    return DatabaseJobVacancy.getsAllData(uid);
-  }
+  //   return DatabaseJobVacancy.getsAllData(uid);
+  // }
 
   @override
   Widget build(BuildContext context) {
