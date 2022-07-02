@@ -25,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, children: [
           SizedBox(
             height: 16,
           ),
@@ -103,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 45,
             width: MediaQuery.of(context).size.width / 3,
             child: FloatingActionButton.extended(
-              label: const Text('View Job Vacancy status'),
+              label: const Text('View Status'),
               icon: const Icon(Icons.history),
               backgroundColor: Colors.pink,
               onPressed: () {

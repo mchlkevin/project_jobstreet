@@ -5,6 +5,7 @@ import 'package:project_uas/homescreen.dart';
 import 'package:project_uas/hscreencompany.dart';
 import 'package:project_uas/mainscreen.dart';
 import 'package:project_uas/services/auth_services.dart';
+import 'package:project_uas/services/db_services.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -44,104 +45,86 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AuthWrapper extends StatelessWidget {
+class AuthWrapper extends StatefulWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    final user = context.watch<User?>();
+  State<AuthWrapper> createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  var x;
+  static Future<bool> isThisCompanyAccount(String uid) async{
+    final QuerySnapshot result = await FirebaseFirestore.instance
+    .collection('company')
+    .where('uid', isEqualTo: uid)
+    .limit(1)
+    .get();
+  final List<DocumentSnapshot> documents = result.docs;
+  bool boolean = false;
+  if (documents.isNotEmpty && documents.length == 1){
+    boolean = true;
+  }
+  return boolean;
+  }
+  
+  Future<Widget> widgetssss() async{
     User? userDetection = FirebaseAuth.instance.currentUser;
-
-    if (user != null &&
-        userDetection!.email.toString().contains('company') == true) {
-      return HomeScreenCompany();
-    } else if (user != null &&
-        userDetection!.email.toString().contains('company') == false) {
-      return HomeScreen();
+    final user = context.watch<User?>();
+    if (user == null){
+      return MainScreen();
     }
-    return MainScreen();
+    bool a = await isThisCompanyAccount(userDetection!.uid);
+    var x;
+    if (user != null && a == true){
+      x = HomeScreenCompany();
+    }
+    else if (user != null && a == false){
+      x = HomeScreen();
+    }
+    else{
+      x = MainScreen();
+    }
+    return x;
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
+    
+
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      body: FutureBuilder(
+        future: widgetssss(),
+        builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text("Something went wrong");
+              }
+              if (snapshot.connectionState == ConnectionState.done) {
+                // Map<String, dynamic> data =
+                //     snapshot.data!.data() as Map<String, dynamic>;
+                // return Column(children: [
+                //   // Text('Welcome ' + data['company-name'],
+                //   //     style:
+                //   //         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                // ]);
+                return snapshot.data as Widget;
+              }
+
+              return CircularProgressIndicator();
+            },),
+        );
+    // if (user != null &&
+    //     userDetection!.email.toString().contains('company') == true) {
+          
+    //   return HomeScreenCompany();
+    // } else if (user != null &&
+    //     userDetection!.email.toString().contains('company') == false) {
+    //   return HomeScreen();
+    // }
+    // return MainScreen();
+
+    }
+    
+    
   }
-}
+

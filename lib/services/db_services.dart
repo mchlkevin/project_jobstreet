@@ -110,6 +110,8 @@ class DatabaseAppliedJobVacancy {
     }
   }
 
+  
+
   static Future<bool> doesApplyAlreadyExist(String jobSeekerName, String JobVacancyName) async {
   final QuerySnapshot result = await FirebaseFirestore.instance
     .collection('applied-job')
@@ -119,6 +121,7 @@ class DatabaseAppliedJobVacancy {
   
   final List<DocumentSnapshot> documents = result.docs;
 
+  
   return documents.length == 1;
 }
   
@@ -135,6 +138,8 @@ class DatabaseAppliedJobVacancy {
     
     
   }
+
+
 
   static Future<void> ubahData({required appliedclass item}) async {
     DocumentReference docRef = dataApplied.doc(item.uidJobVacancy + item.uidPerson);

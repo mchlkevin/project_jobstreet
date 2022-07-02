@@ -32,7 +32,7 @@ class assessmentPage extends StatelessWidget {
                   String lvName = data['full-name'];
                   return Expanded(
                     child: Card(
-                      margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      margin: EdgeInsets.fromLTRB(10, 20, 10, 10),
                       child: ListView(
                         children: [
                           // Column(
@@ -42,9 +42,7 @@ class assessmentPage extends StatelessWidget {
                             child: ListTile(
                               title: Text('Full Name: ' + data['full-name']),
                             ),
-                            elevation: 8,
-                            shadowColor: Colors.green,
-                            margin: EdgeInsets.all(20),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10,0),
                             shape: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.white)),
@@ -55,9 +53,7 @@ class assessmentPage extends StatelessWidget {
                               title: Text('Major In: ' +
                                   data['major-in']),
                             ),
-                            elevation: 8,
-                            shadowColor: Colors.green,
-                            margin: EdgeInsets.all(20),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             shape: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.white)),
@@ -67,9 +63,7 @@ class assessmentPage extends StatelessWidget {
                               title: Text('Interest On: ' +
                                   data['interest-on']),
                             ),
-                            elevation: 8,
-                            shadowColor: Colors.green,
-                            margin: EdgeInsets.all(20),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             shape: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.white)),
@@ -78,9 +72,7 @@ class assessmentPage extends StatelessWidget {
                             child: ListTile(
                               title: Text('Email: ' + data['email']),
                             ),
-                            elevation: 8,
-                            shadowColor: Colors.green,
-                            margin: EdgeInsets.all(20),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             shape: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.white)),
@@ -90,9 +82,7 @@ class assessmentPage extends StatelessWidget {
                             child: ListTile(
                               title: Text('Domicile: ' + data['domicile']),
                             ),
-                            elevation: 8,
-                            shadowColor: Colors.green,
-                            margin: EdgeInsets.all(20),
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                             shape: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide(color: Colors.white)),
@@ -108,9 +98,7 @@ class assessmentPage extends StatelessWidget {
                 return CircularProgressIndicator();
               },
             ),
-            SizedBox(
-              height: 16,
-            ),
+            
             Container(
               height: 45,
               width: MediaQuery.of(context).size.width / 3,
@@ -130,7 +118,7 @@ class assessmentPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 3,
               child: FloatingActionButton.extended(
                   label: const Text('Accept'),
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.check),
                   backgroundColor: Colors.pink,
                   onPressed: () {
                     appliedclass items = appliedclass(uidPerson: uid, uidJobVacancy: uidJobVacancy, Status: "Success");
@@ -146,7 +134,7 @@ class assessmentPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 3,
               child: FloatingActionButton.extended(
                   label: const Text('Decline'),
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.block),
                   backgroundColor: Colors.pink,
                   onPressed: () {
                     appliedclass items = appliedclass(uidPerson: uid, uidJobVacancy: uidJobVacancy, Status: "Failed");
