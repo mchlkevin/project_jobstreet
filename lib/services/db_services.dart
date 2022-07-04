@@ -70,13 +70,13 @@ class DatabaseJobVacancy {
           .startAt([companyName]).endAt([companyName + '\uf8ff']).snapshots();
     }
   }
-  static Future<QuerySnapshot> getsAllDataWithSort(int expectedGaji) {
+  static Stream<QuerySnapshot> getsAllDataWithSort(int expectedGaji) {
     // if (expectedGaji == 0) {
     //   return dataLowongan.get();
     // } else {
-      Future<QuerySnapshot> a = dataLowongan
+      Stream<QuerySnapshot> a = dataLowongan
           .where('gaji', isGreaterThanOrEqualTo: expectedGaji)
-          .get();
+          .snapshots();
       return a;
     // }
   }

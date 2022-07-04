@@ -19,11 +19,14 @@ class viewJobVacancy extends StatefulWidget {
 
 class _viewJobVacancyState extends State<viewJobVacancy> {
   User? userDetection = FirebaseAuth.instance.currentUser;
+  TextEditingController _filterGaji = new TextEditingController();
+
   // final _searchText = TextEditingController();
 
   @override
   void dispose() {
     // _searchText.dispose();
+    _filterGaji.dispose();
     super.dispose();
   }
 
@@ -32,27 +35,34 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
     // _searchText.addListener(onSearch);
     // classvacancy data = classvacancy(uid: "fmnP9M7aryH3MN6Qjvw8", companyName: "Tencent", jobDescription: ["A", "B", "C"], gaji: "4.000.000", jenisPekerjaan: "Part Time", namaPekerjaan: "Software Designer", kualifikasi: ["D", "E", "F"], lokasi: "Jakarta, Jawa Tengah, Indonesia", minimumEdukasi: "S1", skills: ["G", "H", "I"]);
     // DatabaseJobVacancy.tambahData(item: data);
+
+    _filterGaji.addListener(onSearch);
     super.initState();
   }
 
-  static Future<int> thisExpectedGaji(String uid) async{
-    final QuerySnapshot result = await FirebaseFirestore.instance
-    .collection('job-seeker')
-    .where('uid', isEqualTo: uid)
-    .limit(1)
-    .get();
-    
-    print(result);
-  
-  final DocumentSnapshot documents = result.docs[0];
-  int gaji = documents['expected-gaji'];
-  return gaji;
-  }
-  
-  Future<QuerySnapshot<Object?>> onSearch()async {
+  // static Future<int> thisExpectedGaji(String uid) async{
+  //   final QuerySnapshot result = await FirebaseFirestore.instance
+  //   .collection('job-seeker')
+  //   .where('uid', isEqualTo: uid)
+  //   .limit(1)
+  //   .get();
+
+  //   print(result);
+
+  // final DocumentSnapshot documents = result.docs[0];
+  // int gaji = documents['expected-gaji'];
+  // return gaji;
+  // }
+
+  Stream<QuerySnapshot<Object?>> onSearch() {
     setState(() {});
-    var a = await thisExpectedGaji(userDetection!.uid);
-    
+    var a = 0;
+    if (_filterGaji.text != '') {
+      if (int.tryParse(_filterGaji.text) != null){
+        a = int.parse(_filterGaji.text);
+      }
+    }
+
     return DatabaseJobVacancy.getsAllDataWithSort(a);
   }
 
@@ -90,112 +100,133 @@ class _viewJobVacancyState extends State<viewJobVacancy> {
             //     ),
             //   ),
             // ),
-            Expanded(
-              child: FutureBuilder<QuerySnapshot<Object?>>(
-                future: onSearch(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error');
-                  // } else if (snapshot.hasData || snapshot.data != null) {
-                  }else {
-                    return Card(
-                      child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            DocumentSnapshot dsData =
-                                snapshot.data!.docs[index];
-                            String comp = dsData['company-name'];
-                            // DocumentReference companyRef = FirebaseFirestore.instance.collection("company").doc(test);
-                            // Future company = companyRef.get();
-                            // var map;
 
-                            // company.then((value) => map = value);
-                            // Map<String, dynamic> data =  map;
-                            // String lvcName = data['company-name'];
-
-                            String lvcName = dsData['job-name'];
-                            List lvcDesc = dsData['deskripsi-pekerjaan'];
-                            String lvcLoc = dsData['lokasi'];
-                            String lvcjobtype = dsData['jenis-pekerjaan'];
-                            return ListTile(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          detJobVacancyWithApply(
-                                        uid: dsData['uid'],
-                                      ),
-                                    ));
-                              },
-                              // title: Text(lvcName,
-                              // // style: TextStyle(backgroundColor: Color.fromARGB(141, 146, 240, 146)),
-                              // ),
-                              title: Text(lvcName),
-                              subtitle: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      FutureBuilder<DocumentSnapshot<Object?>>(
-                                        future: DatabaseCompany.getData(comp),
-                                        builder: (context, snapshot2) {
-                                          if (snapshot2.hasError) {
-                                            return Text("Something went wrong");
-                                          }
-                                          if (snapshot2.hasData &&
-                                              !snapshot2.data!.exists) {
-                                            return Text(
-                                                "Document does not exist");
-                                          }
-                                          if (snapshot2.connectionState ==
-                                              ConnectionState.done) {
-                                            Map<String, dynamic> data =
-                                                snapshot2.data!.data()
-                                                    as Map<String, dynamic>;
-                                            return
-                                                // Row(
-                                                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                //   children: [
-                                                Text(data['company-name']);
-                                            //   ],
-                                            // );
-                                          }
-                                          return Text("Loading Company");
-                                        },
-                                      ),
-                                      Text(lvcLoc)
-                                    ],
-                                  ),
-
-                                  // ListView.builder(
-                                  //   shrinkWrap: true,
-                                  //   itemCount: lvcDesc.length,
-                                  //   itemBuilder: (context, index) {
-                                  //     return ListTile(
-                                  //       leading: Icon(Icons.circle),
-                                  //       title: Text(lvcDesc[index]));
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => SizedBox(
-                                height: 8.0,
-                              ),
-                          itemCount: snapshot.data!.docs.length),
-                    );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.pinkAccent),
-                    ),
-                  );
-                },
+            Card(
+              margin: EdgeInsets.symmetric(
+                horizontal: 50,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  // color: Color.fromARGB(255, 220, 236, 244),
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+                  child: TextField(
+                    controller: _filterGaji,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        labelText: "Salary Filter",
+                        hintText: "Enter Minimum Salary"),
+                  ),
+                ),
               ),
             ),
+
+            Expanded(
+              child: Card(
+                child: StreamBuilder<QuerySnapshot<Object?>>(
+                  stream: onSearch(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error');
+                      // } else if (snapshot.hasData || snapshot.data != null) {
+                    } else {
+                      return Card(
+                        child: ListView.separated(
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot dsData =
+                                  snapshot.data!.docs[index];
+                              String comp = dsData['company-name'];
+                              // DocumentReference companyRef = FirebaseFirestore.instance.collection("company").doc(test);
+                              // Future company = companyRef.get();
+                              // var map;
+
+                              // company.then((value) => map = value);
+                              // Map<String, dynamic> data =  map;
+                              // String lvcName = data['company-name'];
+
+                              String lvcName = dsData['job-name'];
+                              List lvcDesc = dsData['deskripsi-pekerjaan'];
+                              String lvcLoc = dsData['lokasi'];
+                              String lvcjobtype = dsData['jenis-pekerjaan'];
+                              return ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            detJobVacancyWithApply(
+                                          uid: dsData['uid'],
+                                        ),
+                                      ));
+                                },
+                                // title: Text(lvcName,
+                                // // style: TextStyle(backgroundColor: Color.fromARGB(141, 146, 240, 146)),
+                                // ),
+                                title: Text(lvcName),
+                                subtitle: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        FutureBuilder<
+                                            DocumentSnapshot<Object?>>(
+                                          future: DatabaseCompany.getData(comp),
+                                          builder: (context, snapshot2) {
+                                            if (snapshot2.hasError) {
+                                              return Text(
+                                                  "Something went wrong");
+                                            }
+                                            if (snapshot2.hasData &&
+                                                !snapshot2.data!.exists) {
+                                              return Text(
+                                                  "Document does not exist");
+                                            }
+                                            if (snapshot2.connectionState ==
+                                                ConnectionState.done) {
+                                              Map<String, dynamic> data =
+                                                  snapshot2.data!.data()
+                                                      as Map<String, dynamic>;
+                                              return
+                                                  // Row(
+                                                  //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  //   children: [
+                                                  Text(data['company-name']);
+                                              //   ],
+                                              // );
+                                            }
+                                            return Text("Loading Company");
+                                          },
+                                        ),
+                                        Text(lvcLoc)
+                                      ],
+                                    ),
+
+                                    // ListView.builder(
+                                    //   shrinkWrap: true,
+                                    //   itemCount: lvcDesc.length,
+                                    //   itemBuilder: (context, index) {
+                                    //     return ListTile(
+                                    //       leading: Icon(Icons.circle),
+                                    //       title: Text(lvcDesc[index]));
+                                    //   },
+                                    // ),
+                                  ],
+                                ),
+                              );
+                            },
+                            separatorBuilder: (context, index) => SizedBox(
+                                  height: 8.0,
+                                ),
+                            itemCount: snapshot.data!.docs.length),
+                      );
+                    }
+                  },
+                ),
+              ),
+            )
           ],
         ),
       ),
