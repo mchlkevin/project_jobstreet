@@ -66,7 +66,7 @@ class DatabaseJobVacancy {
       return dataLowongan.snapshots();
     } else {
       return dataLowongan
-          .orderBy("")
+          .orderBy("company-name")
           .startAt([companyName]).endAt([companyName + '\uf8ff']).snapshots();
     }
   }

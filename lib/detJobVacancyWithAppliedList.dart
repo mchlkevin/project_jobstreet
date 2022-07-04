@@ -199,7 +199,7 @@ class detJobVacancyWithAppliedList extends StatelessWidget {
                           Card(
                             child: ListTile(
                               title:
-                                  Text('Gaji: ' + data['gaji']),
+                                  Text('Gaji: ' + data['gaji'].toString()),
                             ),
                             margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             shape: OutlineInputBorder(
