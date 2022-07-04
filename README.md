@@ -6,7 +6,6 @@ Anggota 2: Michael Kevin - C14190167
 
 Judul: JobStreet Application
 
-Penjelasan ide:
 Database: Firestore Database & Realtime Database
 
 Fungsi yang ada:
