@@ -1,5 +1,7 @@
 Daftar Anggota Kelompok 24
+
 Anggota 1: Michael Christian Chandra - C14200013
+
 Anggota 2: Michael Kevin - C14190167
 
 Judul: JobStreet Application
@@ -20,7 +22,7 @@ Fungsi yang ada:
 10.	Opsional: Terdapat fitur push-notification kepada Job seeker / pencari kerja menggunakan Firebase Cloud Messaging jika terdapat lowongan pekerjaan baru yang di publish oleh suatu perusahaan sesuai dengan domisili ataupun ketertarikan mereka pada suatu bidang
 
 Widget yang digunakan:
-●	Container, TextField, Text, Elevated Button, List View, Navigator, Snackbar, Expanded, ImageView, Card, List Tile, Icon, Row, Column, Expanded Button, SizedBox, dll
+Container, TextField, Text, Elevated Button, List View, Navigator, Snackbar, Expanded, ImageView, Card, List Tile, Icon, Row, Column, Expanded Button, SizedBox, dll
 
 Page yang dibuat:
 1.	Login, Register, Logout (-)
